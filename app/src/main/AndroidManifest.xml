@@ -37,12 +37,10 @@
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
 
-        <activity android:name=".GalleryActivity"
-            android:configChanges="orientation|screenSize">
+        <activity android:name=".GalleryActivity">
         </activity>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"
-            android:configChanges="orientation|screenSize"/>
+            android:theme="@style/Base.Theme.AppCompat"/>
     </application>
 
 

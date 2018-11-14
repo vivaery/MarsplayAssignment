@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
@@ -24,7 +25,6 @@ import com.github.chrisbanes.photoview.PhotoView;
 import com.github.chrisbanes.photoview.PhotoViewAttacher;
 
 import java.io.File;
-import java.security.Permission;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +45,11 @@ public class GalleryActivity extends AppCompatActivity implements GalleryViewAda
     private String[] filesPaths;
     private String[] filesNames;
 
+    private Dialog dialog;
+    private String imageName;
+
+    private boolean isShowingDialog = false;
+
     private static final int READ_STORAGE_CODE = 2001;
 
     @Override
@@ -53,10 +58,34 @@ public class GalleryActivity extends AppCompatActivity implements GalleryViewAda
         setContentView(R.layout.activity_gallery);
         ButterKnife.bind(this);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         galleryView.setVisibility(View.INVISIBLE);
         galleryProgress.setVisibility(View.INVISIBLE);
 
         checkExternalStoragePermission();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (dialog != null) {
+            isShowingDialog = dialog.isShowing();
+        }
+        outState.putBoolean(getString(R.string.IS_SHOWING_DIALOG_KEY), isShowingDialog);
+        if (isShowingDialog)
+            outState.putString(getString(R.string.IMAGE_NAME_KEY), imageName);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        isShowingDialog = savedInstanceState.getBoolean(getString(R.string.IS_SHOWING_DIALOG_KEY));
+        if (isShowingDialog) {
+            imageName = savedInstanceState.getString(getString(R.string.IMAGE_NAME_KEY));
+            showImageDialog(imageName);
+        }
     }
 
     private void checkExternalStoragePermission() {
@@ -131,11 +160,12 @@ public class GalleryActivity extends AppCompatActivity implements GalleryViewAda
 
     @Override
     public void onThumbnailClick(int position) {
-        showImageDialog(position);
+        imageName = filesNames[position];
+        showImageDialog(filesNames[position]);
     }
 
-    private void showImageDialog(int position) {
-        final Dialog dialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+    private void showImageDialog(String fileName) {
+        dialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_full_image);
         ImageButton cancelDialog = dialog.findViewById(R.id.imageDialogCancel);
@@ -147,9 +177,8 @@ public class GalleryActivity extends AppCompatActivity implements GalleryViewAda
                 dialog.dismiss();
             }
         });
-
         PhotoViewAttacher attacher = new PhotoViewAttacher(fullImage);
-        String url = getString(R.string.download_url_path) + filesNames[position];
+        String url = getString(R.string.download_url_path) + fileName;
         Log.e("IMAGE_URL", url);
         Glide.with(this)
                 .load(url)
@@ -172,4 +201,11 @@ public class GalleryActivity extends AppCompatActivity implements GalleryViewAda
         dialog.show();
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
+    }
 }

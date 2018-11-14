@@ -11,4 +11,6 @@
     <string name="download_url_path">https://s3.amazonaws.com/marsplayassignment-userfiles-mobilehub-1230803977/mobileUploads/</string>
     <string name="no_image_found">No images found</string>
     <string name="edit">Edit</string>
+    <string name="IS_SHOWING_DIALOG_KEY">isShowingDialog</string>
+    <string name="IMAGE_NAME_KEY">imageName</string>
 </resources>
