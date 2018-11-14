@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int READ_STORAGE_CODE = 1003;
     public static final int GALLERY_PIC_REQUEST_CODE = 1005;
 
-    private static final String AWS_KEY = "AKIAIR4OXJDS54L66L6A";
-    private static final String SECRET_KEY = "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";
+    private static final String AWS_KEY = "insert-the-key";
+    private static final String SECRET_KEY = "insert-the-key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
