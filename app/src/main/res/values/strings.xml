@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Marsplay Assignment</string>
+    <string name="camera_btn_text">Camera</string>
+    <string name="gallery_btn_text">Gallery</string>
+    <string name="upload_btn_text">Upload</string>
+    <string name="grant_camera_permissions">Please grant camera permissions.</string>
+    <string name="grant_storage_permissions">Please grant external permissions to get image from gallery.</string>
+    <string name="select_image">Select image</string>
+    <string name="image">Image</string>
+    <string name="error_msg">Something went wrong, please try again later.</string>
+    <string name="download_url_path">https://s3.amazonaws.com/marsplayassignment-userfiles-mobilehub-1230803977/mobileUploads/</string>
+    <string name="no_image_found">No images found</string>
+    <string name="edit">Edit</string>
+</resources>

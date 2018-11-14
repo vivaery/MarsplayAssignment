@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="smallestWidth700">700</integer>
+    <integer name="columnCount5">5</integer>
+    <integer name="smallestWidth600">600</integer>
+    <integer name="columnCount4">4</integer>
+    <integer name="columnCount3">3</integer>
+    <integer name="sort_dialog_default_index">0</integer>
+</resources>
